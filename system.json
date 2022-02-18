@@ -1,17 +1,17 @@
 {
-  "name": "dnd5e",
-  "title": "DnD5e - Fifth Edition System",
-  "description": "A system for playing the fifth edition of the worlds most popular role-playing game in the Foundry Virtual Tabletop environment.",
-  "version": "1.5.7",
-  "author": "Atropos",
+  "name": "CLoD",
+  "title": "Cearbhall: Legends Of Dastards",
+  "description": "A system for playing the Cearbhall: Legends Of Dastards role-playing game in the Foundry Virtual Tabletop environment.",
+  "version": "1.0",
+  "author": "Kedorati",
   "scripts": [],
-  "esmodules": ["dnd5e.js"],
-  "styles": ["dnd5e.css"],
+  "esmodules": ["clod.js"],
+  "styles": ["clod.css"],
   "packs": [
     {
       "name": "heroes",
       "label": "Starter Heroes",
-      "system": "dnd5e",
+      "system": "CLoD",
       "path": "./packs/heroes.db",
       "entity": "Actor",
       "type": "Actor"
@@ -19,7 +19,7 @@
     {
       "name": "monsters",
       "label": "Monsters (SRD)",
-      "system": "dnd5e",
+      "system": "CLoD",
       "path": "./packs/monsters.db",
       "entity": "Actor",
       "type": "Actor"
@@ -27,7 +27,7 @@
     {
       "name": "items",
       "label": "Items (SRD)",
-      "system": "dnd5e",
+      "system": "CLoD",
       "path": "./packs/items.db",
       "entity": "Item",
       "type": "Item"
@@ -35,7 +35,7 @@
     {
       "name": "tradegoods",
       "label": "Trade Goods (SRD)",
-      "system": "dnd5e",
+      "system": "CLoD",
       "path": "./packs/tradegoods.db",
       "entity": "Item",
       "type": "Item"
@@ -43,7 +43,7 @@
     {
       "name": "spells",
       "label": "Spells (SRD)",
-      "system": "dnd5e",
+      "system": "CLoD",
       "path": "./packs/spells.db",
       "entity": "Item",
       "type": "Item"
@@ -51,7 +51,7 @@
     {
       "name": "classes",
       "label": "Classes (SRD)",
-      "system": "dnd5e",
+      "system": "CLoD",
       "path": "./packs/classes.db",
       "entity": "Item",
       "type": "Item"
@@ -59,7 +59,7 @@
     {
       "name": "classfeatures",
       "label": "Class Features (SRD)",
-      "system": "dnd5e",
+      "system": "CLoD",
       "path": "./packs/classfeatures.db",
       "entity": "Item",
       "type": "Item"
@@ -67,7 +67,7 @@
     {
       "name": "races",
       "label": "Racial Features (SRD)",
-      "system": "dnd5e",
+      "system": "CLoD",
       "path": "./packs/races.db",
       "entity": "Item",
       "type": "Item"
@@ -75,7 +75,7 @@
     {
       "name": "monsterfeatures",
       "label": "Monster Features (SRD)",
-      "system": "dnd5e",
+      "system": "CLoD",
       "path": "./packs/monsterfeatures.db",
       "entity": "Item",
       "type": "Item"
@@ -83,7 +83,7 @@
     {
       "name": "rules",
       "label": "Rules (SRD)",
-      "system": "dnd5e",
+      "system": "CLoD",
       "path": "./packs/rules.db",
       "entity": "JournalEntry",
       "type": "JournalEntry"
@@ -103,7 +103,6 @@
   "secondaryTokenAttribute": null,
   "minimumCoreVersion": "0.8.9",
   "compatibleCoreVersion": "9",
-  "url": "https://gitlab.com/foundrynet/dnd5e",
-  "manifest": "https://gitlab.com/api/v4/projects/foundrynet%2Fdnd5e/packages/generic/dnd5e/latest/system.json",
-  "download": "https://gitlab.com/foundrynet/dnd5e/-/releases/release-1.5.7/downloads/dnd5e-release-1.5.7.zip"
+  "url": "https://github.com/kedorati/CLoD",
+  "download": "https://github.com/kedorati/CLoD/-/releases/release-1.0/downloads/CLoD-release-1.0.zip"
 }
