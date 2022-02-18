@@ -1,7 +1,7 @@
 # Foundry Virtual Tabletop - CLoD Game System
 
 This game system for [Foundry Virtual Tabletop](http://foundryvtt.com) provides character sheet and game system 
-support for the Cearbhall: Legends Of Dastards rroleplaying game.
+support for the Cearbhall: Legends Of Dastards roleplaying game.
 
 This system provides character sheet support for Actors and Items, mechanical support for dice and rules necessary to
 play games of CLoD, and compendium content for Monsters, Heroes, Items, Spells, Class Features, Monster 
