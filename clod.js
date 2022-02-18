@@ -1,33 +1,31 @@
 /**
- * The DnD5e game system for Foundry Virtual Tabletop
- * A system for playing the fifth edition of the worlds most popular roleplaying game.
- * Author: Atropos
+ * The CLoD game system for Foundry Virtual Tabletop
+ * A system for playing the Cearbhall: Legends Of Dastards roleplaying game.
+ * Author: Kedorati
  * Software License: GNU GPLv3
- * Content License: https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf
- * Repository: https://gitlab.com/foundrynet/dnd5e
- * Issue Tracker: https://gitlab.com/foundrynet/dnd5e/issues
+ * Repository: https://github.com/kedorati/CLoD
  */
 
 // Import Modules
-import { DND5E } from "./module/config.js";
+import { CLOD } from "./module/config.js";
 import { registerSystemSettings } from "./module/settings.js";
 import { preloadHandlebarsTemplates } from "./module/templates.js";
 import { _getInitiativeFormula } from "./module/combat.js";
 import { measureDistances } from "./module/canvas.js";
 
 // Import Documents
-import Actor5e from "./module/actor/entity.js";
-import Item5e from "./module/item/entity.js";
-import { TokenDocument5e, Token5e } from "./module/token.js";
+import ActorCLoD from "./module/actor/entity.js";
+import ItemCLoD from "./module/item/entity.js";
+import { TokenDocumentCLoD, TokenCLoD } from "./module/token.js";
 
 // Import Applications
 import AbilityTemplate from "./module/pixi/ability-template.js";
 import AbilityUseDialog from "./module/apps/ability-use-dialog.js";
 import ActorSheetFlags from "./module/apps/actor-flags.js";
-import ActorSheet5eCharacter from "./module/actor/sheets/character.js";
-import ActorSheet5eNPC from "./module/actor/sheets/npc.js";
-import ActorSheet5eVehicle from "./module/actor/sheets/vehicle.js";
-import ItemSheet5e from "./module/item/sheet.js";
+import ActorSheetCLoDCharacter from "./module/actor/sheets/character.js";
+import ActorSheetCLoDNPC from "./module/actor/sheets/npc.js";
+import ActorSheetCLoDVehicle from "./module/actor/sheets/vehicle.js";
+import ItemSheetCLoD from "./module/item/sheet.js";
 import ShortRestDialog from "./module/apps/short-rest.js";
 import TraitSelector from "./module/apps/trait-selector.js";
 import ActorMovementConfig from "./module/apps/movement-config.js";
@@ -38,7 +36,7 @@ import * as chat from "./module/chat.js";
 import * as dice from "./module/dice.js";
 import * as macros from "./module/macros.js";
 import * as migrations from "./module/migration.js";
-import ActiveEffect5e from "./module/active-effect.js";
+import ActiveEffectCLoD from "./module/active-effect.js";
 import ActorAbilityConfig from "./module/apps/ability-config.js";
 import ActorSkillConfig from "./module/apps/skill-config.js";
 
@@ -47,17 +45,17 @@ import ActorSkillConfig from "./module/apps/skill-config.js";
 /* -------------------------------------------- */
 
 Hooks.once("init", function() {
-  console.log(`DnD5e | Initializing the DnD5e Game System\n${DND5E.ASCII}`);
+  console.log(`CLoD | Initializing the CLoD Game System\n${CLOD.ASCII}`);
 
   // Create a namespace within the game global
-  game.dnd5e = {
+  game.CLoD = {
     applications: {
       AbilityUseDialog,
       ActorSheetFlags,
-      ActorSheet5eCharacter,
-      ActorSheet5eNPC,
-      ActorSheet5eVehicle,
-      ItemSheet5e,
+      ActorSheetCLoDCharacter,
+      ActorSheetCLoDNPC,
+      ActorSheetCLoDVehicle,
+      ItemSheetCLoD,
       ShortRestDialog,
       TraitSelector,
       ActorMovementConfig,
@@ -68,13 +66,13 @@ Hooks.once("init", function() {
     canvas: {
       AbilityTemplate
     },
-    config: DND5E,
+    config: CLOD,
     dice: dice,
     entities: {
-      Actor5e,
-      Item5e,
-      TokenDocument5e,
-      Token5e
+      ActorCLoD,
+      ItemCLoD,
+      TokenDocumentCLoD,
+      TokenCLoD
     },
     macros: macros,
     migrations: migrations,
@@ -82,22 +80,22 @@ Hooks.once("init", function() {
     isV9: !foundry.utils.isNewerVersion("9.224", game.version ?? game.data.version)
   };
 
-  // This will be removed when dnd5e minimum core version is updated to v9.
-  if ( !game.dnd5e.isV9 ) dice.shimIsDeterministic();
+  // This will be removed when CLoD minimum core version is updated to v9.
+  if ( !game.CLoD.isV9 ) dice.shimIsDeterministic();
 
   // Record Configuration Values
-  CONFIG.DND5E = DND5E;
-  CONFIG.ActiveEffect.documentClass = ActiveEffect5e;
-  CONFIG.Actor.documentClass = Actor5e;
-  CONFIG.Item.documentClass = Item5e;
-  CONFIG.Token.documentClass = TokenDocument5e;
-  CONFIG.Token.objectClass = Token5e;
+  CONFIG.CLOD = CLOD;
+  CONFIG.ActiveEffect.documentClass = ActiveEffectCLoD;
+  CONFIG.Actor.documentClass = ActorCLoD;
+  CONFIG.Item.documentClass = ItemCLoD;
+  CONFIG.Token.documentClass = TokenDocumentCLoD;
+  CONFIG.Token.objectClass = TokenCLoD;
   CONFIG.time.roundTime = 6;
 
   CONFIG.Dice.DamageRoll = dice.DamageRoll;
   CONFIG.Dice.D20Roll = dice.D20Roll;
 
-  // 5e cone RAW should be 53.13 degrees
+  // CLoD cone RAW should be 53.13 degrees
   CONFIG.MeasuredTemplate.defaults.angle = 53.13;
 
   // Register System Settings
@@ -113,25 +111,25 @@ Hooks.once("init", function() {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("dnd5e", ActorSheet5eCharacter, {
+  Actors.registerSheet("CLoD", ActorSheetCLoDCharacter, {
     types: ["character"],
     makeDefault: true,
-    label: "DND5E.SheetClassCharacter"
+    label: "CLOD.SheetClassCharacter"
   });
-  Actors.registerSheet("dnd5e", ActorSheet5eNPC, {
+  Actors.registerSheet("CLoD", ActorSheetCLoDNPC, {
     types: ["npc"],
     makeDefault: true,
-    label: "DND5E.SheetClassNPC"
+    label: "CLOD.SheetClassNPC"
   });
-  Actors.registerSheet("dnd5e", ActorSheet5eVehicle, {
+  Actors.registerSheet("CLoD", ActorSheetCLoDVehicle, {
     types: ["vehicle"],
     makeDefault: true,
-    label: "DND5E.SheetClassVehicle"
+    label: "CLOD.SheetClassVehicle"
   });
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("dnd5e", ItemSheet5e, {
+  Items.registerSheet("CLoD", ItemSheetCLoD, {
     makeDefault: true,
-    label: "DND5E.SheetClassItem"
+    label: "CLOD.SheetClassItem"
   });
 
   // Preload Handlebars Templates
@@ -163,9 +161,9 @@ Hooks.once("setup", function() {
     "languages", "miscEquipmentTypes", "movementTypes", "polymorphSettings", "senses", "skills", "spellScalingModes",
     "spellSchools", "targetTypes", "toolProficiencies", "toolTypes", "vehicleTypes", "weaponProperties"
   ];
-  preLocalizeConfig(CONFIG.DND5E, localizeKeys, sortKeys);
-  CONFIG.DND5E.trackableAttributes = expandAttributeList(CONFIG.DND5E.trackableAttributes);
-  CONFIG.DND5E.consumableResources = expandAttributeList(CONFIG.DND5E.consumableResources);
+  preLocalizeConfig(CONFIG.CLOD, localizeKeys, sortKeys);
+  CONFIG.CLOD.trackableAttributes = expandAttributeList(CONFIG.CLOD.trackableAttributes);
+  CONFIG.CLOD.consumableResources = expandAttributeList(CONFIG.CLOD.consumableResources);
 });
 
 /* -------------------------------------------- */
@@ -262,21 +260,21 @@ function expandAttributeList(attributes) {
 Hooks.once("ready", function() {
 
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-  Hooks.on("hotbarDrop", (bar, data, slot) => macros.create5eMacro(data, slot));
+  Hooks.on("hotbarDrop", (bar, data, slot) => macros.createCLoDMacro(data, slot));
 
   // Determine whether a system migration is required and feasible
   if ( !game.user.isGM ) return;
-  const currentVersion = game.settings.get("dnd5e", "systemMigrationVersion");
+  const currentVersion = game.settings.get("CLoD", "systemMigrationVersion");
   const NEEDS_MIGRATION_VERSION = "1.5.6";
   const COMPATIBLE_MIGRATION_VERSION = 0.80;
   const totalDocuments = game.actors.size + game.scenes.size + game.items.size;
-  if ( !currentVersion && totalDocuments === 0 ) return game.settings.set("dnd5e", "systemMigrationVersion", game.system.data.version);
+  if ( !currentVersion && totalDocuments === 0 ) return game.settings.set("CLoD", "systemMigrationVersion", game.system.data.version);
   const needsMigration = !currentVersion || isNewerVersion(NEEDS_MIGRATION_VERSION, currentVersion);
   if ( !needsMigration ) return;
 
   // Perform the migration
   if ( currentVersion && isNewerVersion(COMPATIBLE_MIGRATION_VERSION, currentVersion) ) {
-    const warning = "Your DnD5e system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.";
+    const warning = "Your CLoD system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.";
     ui.notifications.error(warning, {permanent: true});
   }
   migrations.migrateWorld();
@@ -288,7 +286,7 @@ Hooks.once("ready", function() {
 
 Hooks.on("canvasInit", function() {
   // Extend Diagonal Measurement
-  canvas.grid.diagonalRule = game.settings.get("dnd5e", "diagonalMovement");
+  canvas.grid.diagonalRule = game.settings.get("CLoD", "diagonalMovement");
   SquareGrid.prototype.measureDistances = measureDistances;
 });
 
@@ -306,12 +304,12 @@ Hooks.on("renderChatMessage", (app, html, data) => {
   chat.highlightCriticalSuccessFailure(app, html, data);
 
   // Optionally collapse the content
-  if (game.settings.get("dnd5e", "autoCollapseItemCards")) html.find(".card-content").hide();
+  if (game.settings.get("CLoD", "autoCollapseItemCards")) html.find(".card-content").hide();
 });
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
-Hooks.on("renderChatLog", (app, html, data) => Item5e.chatListeners(html));
-Hooks.on("renderChatPopout", (app, html, data) => Item5e.chatListeners(html));
-Hooks.on("getActorDirectoryEntryContext", Actor5e.addDirectoryContextOptions);
+Hooks.on("renderChatLog", (app, html, data) => ItemCLoD.chatListeners(html));
+Hooks.on("renderChatPopout", (app, html, data) => ItemCLoD.chatListeners(html));
+Hooks.on("getActorDirectoryEntryContext", ActorCLoD.addDirectoryContextOptions);
 
 // FIXME: This helper is needed for the vehicle sheet. It should probably be refactored.
 Handlebars.registerHelper("getProperty", function(data, property) {
